@@ -1,0 +1,10 @@
+pkg_list=(kakoune ranger openssh fish nodejs hyperfine)
+pkg_list+=(rust build-essential ecj dx man termux-exec)
+cd ~
+
+termux-setup-storage
+
+mkdir workspace
+pkg install "${pkg_list[@]}"
+chmod +x "./user_conf/dotfile_setup.sh"
+"./user_conf/dotfile_setup.sh"

@@ -1,0 +1,48 @@
+#!/bin/bash
+################ configure environment #################
+########################################################
+
+git config --global user.email "joshua.ferguson.273@gmail.com"
+git config --global user.name "Joshua Ferguson"
+#dnf upgrade
+
+
+################################ Download and Install Packages ################################
+###############################################################################################
+source ./rustsetup
+
+
+source ./package_lists/fedora
+
+
+for repo in "${enable_apps[@]}"; do
+	echo $repo
+	sudo dnf copr enable "$repo"
+done
+
+sudo dnf install "${dnf_apps[@]}" "${kde_apps}"
+
+if [[ "$(command -v java)" ]]; then
+	sudo alternatives --config java
+fi
+
+sudo dnf update
+############################# Configure System ##############################################
+#############################################################################################
+#install dotfiles here
+
+wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+
+sudo mkdir /usr/share/fonts/droid-sans-mono-nerd-font-complete
+sudo mv 'Droid Sans Mono Nerd Font Complete.otf' /usr/share/fonts/droid-sans-mono-nerd-font-complete/
+
+#add something to setup rsync between Library in Gdrive and Documents
+#https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
+
+############################# System Administration #########################################
+#############################################################################################
+
+sudo systemctl enable dnf-automatic-install.timer
+sudo systemctl start dnf-automatic-install.timer
+sudo systemctl enable crond.service
+sudo systemctl start crond.service

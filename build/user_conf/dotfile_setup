@@ -1,0 +1,96 @@
+#!/usr/bin/bash
+
+Console_Login=false
+
+if [[ -z "${XDG_CONFIG_HOME}" ]]; then
+    XDG_CONFIG_HOME="$HOME/.config"
+    mkdir -p "$XDG_CONFIG_HOME/git"
+fi
+
+dotfile_repo="https://github.com/skewballfox/.cfg.git"
+echo "$XDG_CONFIG_HOME/git/cfg">> .gitignore
+config="git --git-dir=$XDG_CONFIG_HOME/git/cfg/ --work-tree=$HOME"
+git clone --bare "$dotfile_repo" "$XDG_CONFIG_HOME/git/cfg"
+$config checkout -f
+$config config --local status.showUntrackedFiles no
+ignore_deletions="$config ls-files --deleted -z | git update-index --skip-worktree -z --stdin"
+
+######################### config_list ##########################
+################################################################
+
+kak=("kak" "$XDG_CONFIG_HOME/kak/")
+alacritty=("alacritty" "$XDG_CONFIG_HOME/alacrity/")
+code=("code" "$XDG_CONFIG_HOME/Code/")
+compton=("compton" "$XDG_CONFIG_HOME/Compton/")
+dunst=("dunst" "$XDG_CONFIG_HOME/dunst/")
+firejail=("firejail" "$XDG_CONFIG_HOME/firejail/")
+fish=("fish" "$XDG_CONFIG_HOME/fish/")
+gtk=("gtk-launch" "$XDG_CONFIG_HOME/gtk-3.0/")
+i3=("i3-config-wizard" "$XDG_CONFIG_HOME/i3/")
+urxvt=("urxvt" "$HOME/.Xdefaults $HOME/.Xresources")
+ranger=("ranger" "$XDG_CONFIG_HOME/ranger/")
+termite=("termite" "$XDG_CONFIG_HOME/termite/")
+zathura=("zathura" "$XDG_CONFIG_HOME/zathura/")
+zsh=( "zsh" "$XDG_CONFIG_HOME/zsh/")
+
+######################### Functions ############################
+################################################################
+check_install() {
+
+    echo checking if $1 is installed
+    if ! [ -x "$(command -v $1)" ]; then
+        for path in "${@: -1}"
+        do
+            echo locally untracking $path
+            $config update-index --skip-worktree "$path"
+            rm -r "$path"
+        done
+    fi
+    
+}
+#TODO: this function currently reads multiple directories as a single path
+#in the for loop following the command check, for example the deletion for the array
+#urxvt does not work. either find a way to read multiple paths, or redesign for single dotfile array.
+
+####################### Main Body #############################
+###############################################################
+if [ "$Console_Login" = false ]; then
+    echo no console
+    $config update-index --skip-worktree "$HOME/.xinitrc"
+    rm "$HOME/.xinitrc"
+fi
+
+check_install "${kak[@]}"
+check_install "${alacritty[@]}" 
+check_install "${code[@]}" 
+check_install "${dunst[@]}" 
+check_install "${firejail[@]}" 
+check_install "${fish[@]}" 
+check_install "${gtk[@]}" 
+check_install "${i3[@]}" 
+check_install "${urxvt[@]}"
+check_install "${ranger[@]}" 
+check_install "${termite[@]}" 
+check_install "${zathura[@]}" 
+check_install "${zsh[@]}"
+
+#lets test this out
+$ignore_deletions
+
+#install a few necessary things
+
+if [ -x "$(command -v kak)" ];then
+    cd "$XDG_CONFIG_HOME/kak"
+    mkdir plugins && cd plugins
+    git clone https://github.com/andreyorst/plug.kak.git
+fi
+
+if [ -x "$(command -v fish)" ];then
+    if ! [ -x "$(command -v powerline-go)" ];then
+        cargo install powerline-rs
+    fi
+    if ! [[ -e "/etc/fedora-release" ]];then
+        git update-index --skip-worktree "$XDG_CONFIG_HOME/fish/functions/fsup.fish"
+        rm -r "$XDG_CONFIG_HOME/fish/functions/fsup.fish"
+    fi
+fi

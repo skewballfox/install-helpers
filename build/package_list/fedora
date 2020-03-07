@@ -1,0 +1,92 @@
+#!/bin/bash
+
+sudo dnf upgrade
+
+flatpack_apps=()
+enable_apps=()
+dnf_apps=()
+kde_apps=()
+enable_apps+=(evana/fira-code-fonts  vishalvvr/fontawesome-fonts pschyska/alacritty  gregw/i3desktop)
+enable_apps+=(daftaupe/gopass atim/leftwm gregw/i3desktop luminoso/Signal-Desktop)
+
+############################# system_administration ##################################
+######################################################################################
+
+#TODO check out this guide
+#https://www.tecmint.com/linux-networking-commands/
+
+#system administration and security
+dnf_apps+=(dnf-automatic lynis chkrootkit clamav clamtk clamav-unofficial-sigs fail2ban sendmail) #labrea)
+
+dnf_apps+=(policycoreutils-sandbox psad fwsnort)
+
+dnf_apps+=(i3-gaps feh dunst i3status-rs compton network-manager-applet)
+dnf_apps+=(redshift dmenu scrot xbacklight conky)
+
+kde_apps+=(klamav leftwm kde-connect kde-settings kde-gtk-config kdepim)
+############################# General System #########################################
+######################################################################################
+
+#terminal and sundry
+dnf_apps+=(alacritty tmux ranger fish)
+
+#i3
+#dnf_apps+=(compton i3-gaps i3lock-color i3-ipc i3blocks dunst feh network-manager-applet)
+
+#note: check this out later: https://github.com/altdesktop/i3ipc-python
+#fonts
+dnf_apps+=(fira-code-fonts fontawesome-fonts mathjax)
+
+#common packages
+dnf_apps+=(anki p7zip gopass chromium)
+
+#email
+#dnf_apps+=(thunderbird thunderbird-lightning)
+
+#firefox 
+dnf_apps+=(mozilla-ublock-origin uget mozilla-https-everywhere)
+
+
+#################################### Programming #####################################
+######################################################################################
+
+#for building
+dnf_apps+=(cmake java-latest-openjdk-devel gcc-c++ node)
+
+#for linting
+dnf_apps+=(yamllint)
+
+#IDES and Text editors, lets see what's not vs code
+dnf_apps+=(kakoune neovim eclipse-egit eclipse-cdt eclipse-tm-terminal eclipse-linuxtools)
+dnf_apps+=(ecj kdevelop-python qt-creator rocs)
+
+#exploring what's out there
+dnf_apps+=(graphviz doxygen)
+
+#for python workflow
+dnf_apps+=(python3-jedi python3-black python-unversioned-command ipython3  zeal)
+dnf_apps+=(python3-pydocstyle python3-pocketlint python3-notebook python3-pip)
+
+#for scraping
+dnf_apps+=(python3-requests python3-beautifulsoup4 python3-scrapy python3-selenium)
+
+#for System Automation and analysis
+dnf_apps+=(python3-systemd python-systemd-doc python3-scapy)
+
+#for AI
+dnf_apps+=(julia opencv opencv-devel python3-numpy python3-matplotlib pygame python3-nltk python3-pandas)
+
+################################ Networking ##########################################
+######################################################################################
+
+#for secure cerificate generation
+dnf_apps+=(sscg)
+
+dnf_apps+=(unbound dnssec-trigger)
+
+################################ Source Repos ########################################
+######################################################################################
+
+
+
+

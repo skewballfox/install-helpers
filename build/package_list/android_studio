@@ -1,0 +1,23 @@
+if [[ "$(command -v dnf)" ]]; then
+    sudo dnf install qemu-kvm android-tools libstdc++.i686 zlib.i686
+fi
+
+wget https://dl.google.com/dl/android/studio/ide-zips/3.6.1.0/android-studio-ide-192.6241897-linux.tar.gz
+
+sudo tar -xvf android-studio-ide-192.6241897-linux.tar.gz --directory /opt/
+
+rm -f android-studio-ide-192.6241897-linux.tar.gz
+
+cat <<EOF | \
+sudo tee /usr/local/share/applications/android-studio.desktop
+[Desktop Entry]
+Type=Application
+Name=Android Studio
+Icon=/opt/android-studio/bin/studio.png
+Exec=env _JAVA_OPTIONS=-Djava.io.tmpdir=/var/tmp \
+/opt/android-studio/bin/studio.sh
+Terminal=false
+Categories=Development;IDE;
+EOF
+
+sudo chmod a+r /usr/local/share/applications/android-studio.desktop

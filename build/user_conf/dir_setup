@@ -1,0 +1,27 @@
+mkdir ~/Media
+mkdir ~/Media/Games
+mkdir ~/Media/Images
+mkdir ~/Media/Videos
+mkdir ~/Media/Audio
+mkdir ~/Media/Library
+mkdir ~/Web_IO
+
+
+xdg-user-dirs-update --set DOWNLOAD ~/Web_IO
+xdg-user-dirs-update --set VIDEOS ~/Media/Videos
+xdg-user-dirs-update --set MUSIC ~/Media/Audio
+xdg-user-dirs-update --set DOCUMENTS ~/Media/Library
+xdg-user-dirs-update --set PICTURES ~/Media/Images
+
+xdg-user-dirs-update
+
+rmdir ~/Downloads
+rmdir ~/Pictures
+rmdir ~/Videos
+rmdir ~/Music
+
+mkdir ~/Workspace
+
+mkdir ~/Workspace/Open_Source_Projects
+mkdir ~/Workspace/System_Tools
+mkdir ~/Workspace/Writing
