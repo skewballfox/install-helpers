@@ -75,7 +75,7 @@ dnf_apps+=(python3-systemd python-systemd-doc python3-scapy)
 
 #for AI
 dnf_apps+=(julia opencv opencv-devel python3-numpy python3-matplotlib pygame python3-nltk python3-pandas)
-
+dnf_apps+=(python3-h5py)
 ################################ Networking ##########################################
 ######################################################################################
 
