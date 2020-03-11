@@ -5,7 +5,12 @@ curl https://sh.rustup.rs -sSf | sh
 cargo_packages=()
 cargo_packages+=(cargo-update)
 cargo_packages+=(ripgrep powerline-rust)
+
+source "$HOME/.cargo/bin"
+
 #if ![[ "$(command -v termux-setup-storage)" ]]; then
 
 cargo install "${cargo_packages[@]}"
-	
+cargo install evcxr_jupyter --no-default-features
+evcxr_jupyter --install
+

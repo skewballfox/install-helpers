@@ -56,9 +56,9 @@ dnf_apps+=(cmake java-latest-openjdk-devel gcc-c++ node)
 #for linting
 dnf_apps+=(yamllint)
 
-#IDES and Text editors, lets see what's not vs code
-dnf_apps+=(kakoune neovim eclipse-egit eclipse-cdt eclipse-tm-terminal eclipse-linuxtools)
-dnf_apps+=(ecj kdevelop-python qt-creator rocs)
+#Text editors and interpreters, lets see what's not vs code
+dnf_apps+=(kakoune neovim python3-jupyterconsole xeus-devel)
+dnf_apps+=(zeromq-devel rocs)
 
 #exploring what's out there
 dnf_apps+=(graphviz doxygen)
