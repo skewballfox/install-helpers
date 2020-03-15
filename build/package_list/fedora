@@ -28,7 +28,7 @@ kde_apps+=(klamav leftwm kde-connect kde-settings kde-gtk-config kdepim)
 ######################################################################################
 
 #terminal and sundry
-dnf_apps+=(alacritty tmux ranger fish)
+dnf_apps+=(alacritty tmux ranger fish bat mupdf)
 
 #i3
 #dnf_apps+=(compton i3-gaps i3lock-color i3-ipc i3blocks dunst feh network-manager-applet)
@@ -53,6 +53,8 @@ dnf_apps+=(mozilla-ublock-origin uget mozilla-https-everywhere)
 #for building
 dnf_apps+=(cmake java-latest-openjdk-devel gcc-c++ node)
 
+dnf_apps+=(glib2-devel gstreamer1-devel gstreamer1-plugins-base-devel)
+dnf_apps+=(gstreamer1-plugins-bad-free-devel)
 #for linting
 dnf_apps+=(yamllint)
 
@@ -64,7 +66,7 @@ dnf_apps+=(zeromq-devel rocs)
 dnf_apps+=(graphviz doxygen)
 
 #for python workflow
-dnf_apps+=(python3-jedi python3-black python-unversioned-command ipython3  zeal)
+dnf_apps+=(python3-jedi python3-black ipython3  zeal)
 dnf_apps+=(python3-pydocstyle python3-pocketlint python3-notebook python3-pip)
 
 #for scraping

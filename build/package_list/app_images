@@ -1,0 +1,19 @@
+#!/bin/bash
+
+current_directory="$(pwd)"
+mkdir -p $HOME/.local/bin
+cd $HOME/.local/bin
+wget "https://github.com/AppImage/appimaged/releases/download/continuous/appimaged-x86_64.AppImage"
+chmod a+x appimaged-x86_64.AppImage
+
+./appimaged-x86_64.AppImage --install
+
+# Install Zenkit
+
+wget "https://static.zenkit.com/downloads/zenkit-linux.AppImage"
+
+#Install Ripcord
+
+wget "https://cancel.fm/dl/Ripcord-0.4.24-x86_64.AppImage"
+
+cd $current_directory
