@@ -1,16 +1,18 @@
 #!/bin/bash 
 
+cargo_packages=()
 if ![[ "$(command -v termux-setup-storage)" ]]; then
   curl --proto '=https'--tlsv1.2 https://sh.rustup.rs -sSf | sh
   #not necessary on termux
   source "$HOME/.cargo/bin"
   rustup install nightly
-  rustup default nightly
+  rustup default nightlyi
+else
+  cargo+=(ripgrep)
 fi
 
-cargo_packages=()
 cargo_packages+=(cargo-update)
-cargo_packages+=(ripgrep powerline-rust)
+cargo_packages+=(powerline-rust)
 
 source "$HOME/.cargo/bin"
 rustup install nightly

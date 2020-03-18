@@ -1,0 +1,2 @@
+pip_packages=()
+pip_packages+=(jedi black 'python-language-server[rope,pyflakes,mccabe]' pyls-black)
