@@ -21,3 +21,7 @@ Categories=Development;IDE;
 EOF
 
 sudo chmod a+r /usr/local/share/applications/android-studio.desktop
+sudo groupadd adbusers
+sudo usermod -aG adbusers $LOGNAME
+sudo cp ../system_setup/udev-rules/51-android.rules /etc/udev/rules.d/51-android.rules 
+

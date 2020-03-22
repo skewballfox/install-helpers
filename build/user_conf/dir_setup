@@ -1,5 +1,7 @@
 mkdir ~/Media
 mkdir ~/Media/Games
+mkdir ~/Media/Games/Coding/
+mkdir ~/Media/Games/Open_Source/
 mkdir ~/Media/Images
 mkdir ~/Media/Videos
 mkdir ~/Media/Audio

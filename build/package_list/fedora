@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#for post reboot
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+if [[ $(lspci | grep 'VGA\|3d\|2d')== *"Nvidia"* ]]; then
+    sudo dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo   
+fi
+
 sudo dnf upgrade
 
 flatpack_apps=()
@@ -18,10 +25,13 @@ enable_apps+=(daftaupe/gopass atim/leftwm atim/hunter gregw/i3desktop luminoso/S
 #system administration and security
 dnf_apps+=(dnf-automatic lynis chkrootkit clamav clamtk clamav-unofficial-sigs fail2ban sendmail) #labrea)
 
-dnf_apps+=(policycoreutils-sandbox psad fwsnort)
+dnf_apps+=(policycoreutils-sandbox psad fwsnorti pciutils)
 
 #for performance monitoring
 dnf_apps+=(glances htop hyperfine)
+
+#yubikey support
+dnf_apps+=(ykpers fedora-packager-yubikey yubikey-manager pam_yubico)
 
 ############################# General System #########################################
 ######################################################################################
@@ -29,13 +39,14 @@ dnf_apps+=(glances htop hyperfine)
 #GUI
 dnf_apps+=(i3-gaps feh dunst i3status-rs picom network-manager-applet)
 dnf_apps+=(redshift dmenu xbacklight conky python3-speedtest-cli)
-dnf_apps+=(lm_sensors)
+dnf_apps+=(lm_sensors elementary-icon-theme mint-x-icons rofi)
 
 kde_apps+=(klamav leftwm kde-connect kde-settings kde-gtk-config kdepim)
-kde_apps+=(kf5-krunner)
+kde_apps+=(kf5-krunner kiodrive)
 
 #terminal and sundry
 dnf_apps+=(alacritty tmux ranger hunter fish bat mupdf ripgrep)#may remove ranger in the future
+dnf_apps+=(task vit tasksh timew taskopen)
 
 #i3
 #dnf_apps+=(compton i3-gaps i3lock-color i3-ipc i3blocks dunst feh network-manager-applet)
@@ -45,7 +56,7 @@ dnf_apps+=(alacritty tmux ranger hunter fish bat mupdf ripgrep)#may remove range
 dnf_apps+=(fira-code-fonts fontawesome-fonts mathjax)
 
 #common packages
-dnf_apps+=(anki p7zip gopass chromium)
+dnf_apps+=(anki p7zip gopass chromium-browser-privacy)
 
 #email
 #dnf_apps+=(thunderbird thunderbird-lightning)
@@ -53,12 +64,13 @@ dnf_apps+=(anki p7zip gopass chromium)
 #firefox 
 dnf_apps+=(mozilla-ublock-origin uget mozilla-https-everywhere)
 
-
+#offline documentation
+dnf_apps+=(kiwix-lib-devel kiwix-desktop kiwix-tools zeal javadocofflinesearch javadocofflinesearch-javadoc)
 #################################### Programming #####################################
 ######################################################################################
 
 #for building
-dnf_apps+=(cmake java-latest-openjdk-devel glib2-devel gcc-c++ node llvm)
+dnf_apps+=(cmake java-latest-openjdk-devel glib2-devel gcc-c++ node llvm guava)
 
 dnf_apps+=(glib2-devel gstreamer1-devel gstreamer1-plugins-base-devel)
 dnf_apps+=(gstreamer1-plugins-bad-free-devel)
@@ -66,26 +78,27 @@ dnf_apps+=(gstreamer1-plugins-bad-free-devel)
 #for linting
 dnf_apps+=(yamllint)
 
-#Text editors and interpreters, lets see what's not vs code
-dnf_apps+=(kakoune neovim python3-jupyterconsole xeus-devel)
-dnf_apps+=(zeromq-devel rocs)
+#Text editors, language-servers, and interpreters
+dnf_apps+=(kakoune kak-lsp python3-jupyterconsole xeus-devel)
+dnf_apps+=(zeromq-devel rocs ccls)
 
-#exploring what's out there
-dnf_apps+=(graphviz doxygen)
+#exploring code visualization and generation
+dnf_apps+=(graphviz doxygen plantuml plantuml-javadoc)
+dnf_apps+=(umbrello)
 
 #for python workflow
-dnf_apps+=(python3-jedi python3-black ipython3  zeal)
+dnf_apps+=(python3-jedi python3-black ipython3)
 dnf_apps+=(python3-pydocstyle python3-pocketlint python3-notebook python3-pip)
 
 #for scraping
 dnf_apps+=(python3-requests python3-beautifulsoup4 python3-scrapy python3-selenium)
-
+dnf_apps+=(python3-PyDrive chromedriver)
 #for System Automation and analysis
 dnf_apps+=(python3-systemd python-systemd-doc python3-scapy)
 
-#for AI
-dnf_apps+=(julia opencv opencv-devel python3-numpy python3-matplotlib pygame python3-nltk python3-pandas)
-dnf_apps+=(python3-h5py)
+#for AI and parallel computing
+dnf_apps+=(julia opencv opencv-devel python3-opencv python3-numpy python3-matplotlib pygame python3-nltk python3-pandas)
+dnf_apps+=(python3-h5py python3-mpi4py-openmpi openmpi-devel)
 ################################ Networking ##########################################
 ######################################################################################
 
@@ -96,7 +109,6 @@ dnf_apps+=(unbound dnssec-trigger)
 
 ################################ Source Repos ########################################
 #####################################################################################
-
-
+source_urls=(https://www.sourcetrail.com/downloads/latest/linux/64bit)
 
 

@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+export npm_config_prefix=~/.local/npm_packages/lib/node_modules
+
+npm_packages=();
+
+# i -g
+npm_packages+=(bash-language-server yo how2)
