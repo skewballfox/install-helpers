@@ -13,7 +13,7 @@ config="git --git-dir=$XDG_CONFIG_HOME/git/cfg/ --work-tree=$HOME"
 git clone --bare "$dotfile_repo" "$XDG_CONFIG_HOME/git/cfg"
 $config checkout -f
 $config config --local status.showUntrackedFiles no
-ignore_deletions="$config ls-files --deleted -z | git update-index --skip-worktree -z --stdin"
+ignore_deletions="$config ls-files --deleted -z | $config update-index --skip-worktree -z --stdin"
 
 ######################### config_list ##########################
 ################################################################
@@ -81,7 +81,7 @@ $ignore_deletions
 
 if [ -x "$(command -v kak)" ];then
     mkdir "$XDG_CONFIG_HOME/kak/plugins"
-    git clone --separate-git-dir="$XDG_CONFG_HOME/kak/plugins" https://github.com/andreyorst/plug.kak.git
+    git clone https://github.com/andreyorst/plug.kak.git ~/.config/kak/plugins/
 fi
 
 if [ -x "$(command -v fish)" ];then

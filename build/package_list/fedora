@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #for post reboot
-sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+#sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 if [[ $(sudo lspci | grep 'VGA\|3d\|2d') == "*Nvidia*" ]]; then
     sudo dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo   
@@ -13,6 +13,9 @@ flatpack_apps=()
 enable_apps=()
 dnf_apps=()
 kde_apps=()
+term_apps=()
+sys_apps=()
+dev_apps=()
 enable_apps+=(evana/fira-code-fonts  vishalvvr/fontawesome-fonts pschyska/alacritty  gregw/i3desktop)
 enable_apps+=(daftaupe/gopass atim/leftwm atim/hunter gregw/i3desktop luminoso/Signal-Desktop)
 
@@ -23,40 +26,40 @@ enable_apps+=(daftaupe/gopass atim/leftwm atim/hunter gregw/i3desktop luminoso/S
 #https://www.tecmint.com/linux-networking-commands/
 
 #system administration and security
-dnf_apps+=(dnf-automatic lynis chkrootkit clamav clamtk clamav-unofficial-sigs fail2ban sendmail) #labrea)
+sys_apps+=(dnf-automatic lynis chkrootkit clamav clamtk clamav-unofficial-sigs fail2ban sendmail) #labrea)
 
-dnf_apps+=(policycoreutils-sandbox psad pciutils)
+sys_apps+=(policycoreutils-sandbox psad pciutils)
 
 #for performance monitoring
-dnf_apps+=(glances htop hyperfine)
+term_apps+=(glances htop hyperfine)
 
 #yubikey support
-dnf_apps+=(ykpers fedora-packager-yubikey yubikey-manager pam_yubico)
+sys_apps+=(ykpers fedora-packager-yubikey yubikey-manager pam_yubico)
 
 ############################# General System #########################################
 ######################################################################################
 
 #GUI
-dnf_apps+=(i3-gaps feh dunst i3status-rs picom network-manager-applet)
-dnf_apps+=(redshift dmenu xbacklight conky python3-speedtest-cli)
-dnf_apps+=(lm_sensors elementary-icon-theme mint-x-icons rofi)
+kde_apps+=(i3-gaps feh dunst i3status-rs picom network-manager-applet)
+kde_apps+=(redshift xbacklight conky python3-speedtest-cli)
+kde_apps+=(lm_sensors elementary-icon-theme mint-x-icons rofi)
 
 kde_apps+=(klamav leftwm kde-connect kde-settings kde-gtk-config kdepim)
 kde_apps+=(kf5-krunner kio-gdrive)
 
 #terminal and sundry
-dnf_apps+=(alacritty tmux ranger hunter fish bat mupdf ripgrep)#may remove ranger in the future
-dnf_apps+=(task vit tasksh timew taskopen git-extras fish)
+term_apps+=(alacritty tmux ranger fish bat mupdf ripgrep) #may remove ranger in the future
+term_apps+=(task vit tasksh timew taskopen git-extras fish)
 
 #i3
 #dnf_apps+=(compton i3-gaps i3lock-color i3-ipc i3blocks dunst feh network-manager-applet)
 
 #note: check this out later: https://github.com/altdesktop/i3ipc-python
 #fonts
-dnf_apps+=(fira-code-fonts fontawesome-fonts mathjax)
+term_apps+=(fira-code-fonts fontawesome-fonts mathjax)
 
 #common packages
-dnf_apps+=(anki p7zip gopass chromium-browser-privacy)
+sys_apps+=(anki p7zip gopass chromium-browser-privacy)
 
 #email
 #dnf_apps+=(thunderbird thunderbird-lightning)
@@ -65,47 +68,46 @@ dnf_apps+=(anki p7zip gopass chromium-browser-privacy)
 dnf_apps+=(mozilla-ublock-origin uget mozilla-https-everywhere)
 
 #offline documentation
-dnf_apps+=(kiwix-lib-devel kiwix-desktop kiwix-tools zeal javadocofflinesearch javadocofflinesearch-javadoc)
+dev_apps+=(kiwix-lib-devel kiwix-desktop kiwix-tools zeal javadocofflinesearch javadocofflinesearch-javadoc)
 #################################### Programming #####################################
 ######################################################################################
 
 #for building
-dnf_apps+=(cmake java-latest-openjdk-devel glib2-devel gcc-c++ node llvm guava)
+dev_apps+=(cmake java-latest-openjdk-devel glib2-devel gcc-c++ node llvm guava)
 
-dnf_apps+=(glib2-devel gstreamer1-devel gstreamer1-plugins-base-devel)
-dnf_apps+=(gstreamer1-plugins-bad-free-devel)
+dev_apps+=(glib2-devel gstreamer1-devel gstreamer1-plugins-base-devel)
+dev_apps+=(gstreamer1-plugins-bad-free-devel)
 
 #for linting
 dnf_apps+=(yamllint)
 
 #Text editors, language-servers, and interpreters
 dnf_apps+=(kakoune  python3-jupyter-console xeus-devel)
-dnf_apps+=(zeromq-devel rocs ccls)
+dnf_apps+=(zeromq-devel rocs ccls ipython3)
 
 #exploring code visualization and generation
-dnf_apps+=(graphviz doxygen plantuml plantuml-javadoc)
-dnf_apps+=(umbrello)
+dev_apps+=(graphviz doxygen plantuml plantuml-javadoc)
+dev_apps+=(umbrello)
 
 #for python workflow
-dnf_apps+=(python3-jedi python3-black ipython3)
-dnf_apps+=(python3-pydocstyle python3-pocketlint python3-notebook python3-pip)
+dev_apps+=(python3-pydocstyle python3-pocketlint python3-notebook python3-pip)
 
 #for scraping
-dnf_apps+=(python3-requests python3-beautifulsoup4 python3-scrapy python3-selenium)
-dnf_apps+=(python3-PyDrive chromedriver)
+dev_apps+=(python3-requests python3-beautifulsoup4 python3-scrapy python3-selenium)
+dev_apps+=(python3-PyDrive chromedriver)
 #for System Automation and analysis
-dnf_apps+=(python3-systemd python-systemd-doc python3-scapy)
+dev_apps+=(python3-systemd python-systemd-doc python3-scapy)
 
 #for AI and parallel computing
-dnf_apps+=(julia opencv opencv-devel python3-opencv python3-numpy python3-matplotlib pygame python3-nltk python3-pandas)
-dnf_apps+=(python3-h5py python3-mpi4py-openmpi openmpi-devel)
+dev_apps+=(julia opencv opencv-devel python3-opencv python3-numpy python3-matplotlib pygame python3-nltk python3-pandas)
+dev_apps+=(python3-h5py python3-mpi4py-openmpi openmpi-devel)
 ################################ Networking ##########################################
 ######################################################################################
 
 #for secure cerificate generation
-dnf_apps+=(sscg)
+sys_apps+=(sscg)
 
-dnf_apps+=(unbound dnssec-trigger)
+sys_apps+=(unbound dnssec-trigger)
 
 ################################ Source Repos ########################################
 #####################################################################################

@@ -10,22 +10,23 @@ git config --global user.name "Joshua Ferguson"
 ################################ Download and Install Packages ################################
 ###############################################################################################
 source ./package_list/fedora
-source ./package_list/rustsetup
+#source ./package_list/rustsetup
 #source ./package_list/npm_packages
 #source ./package_list/python_packages
 
-for repo in "${enable_apps[@]}"; do
-	echo $repo
-	sudo dnf copr enable "$repo"
-done
+#for repo in "${enable_apps[@]}"; do
+#	echo $repo
+#	sudo dnf copr enable "$repo"
+#done
 
-sudo dnf install "${dnf_apps[@]}" "${kde_apps[@]}"
+sudo dnf install "${dnf_apps[@]}" "${kde_apps[@]}" "${dev_apps[@]}" "${sys_apps[@]}" "${term_apps[@]}"
 
-sudo cp ./system_setup/desktop-sessions/plasma-* /usr/share/xsessions/
 
-if [[ "$(command -v java)" ]]; then
-	sudo alternatives --config java
-fi
+#sudo cp ./system_setup/desktop-sessions/plasma-* /usr/share/xsessions/
+
+#if [[ "$(command -v java)" ]]; then
+#	sudo alternatives --config java
+#fi
 
 sudo dnf update
 ############################# Configure System ##############################################
@@ -35,10 +36,10 @@ source ./user_conf/dotfile_setup
 exec ./user_conf/setup.fish
 
 
-wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+#wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
 
-sudo mkdir /usr/share/fonts/droid-sans-mono-nerd-font-complete
-sudo mv 'Droid Sans Mono Nerd Font Complete.otf' /usr/share/fonts/droid-sans-mono-nerd-font-complete/
+#sudo mkdir /usr/share/fonts/droid-sans-mono-nerd-font-complete
+#sudo mv 'Droid Sans Mono Nerd Font Complete.otf' /usr/share/fonts/droid-sans-mono-nerd-font-complete/
 
 #add something to setup rsync between Library in Gdrive and Documents
 #https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps

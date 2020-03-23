@@ -1,6 +1,6 @@
 #!/usr/bin/bash 
 
 pip_packages=()
-pip_packages+=(jedi black 'python-language-server[rope,pyflakes,mccabe]' pyls-black)
+pip_packages+=( 'python-language-server[rope,pyflakes,mccabe]' pyls-black)
 
-pip install --user "${pip_packages[@]}"
+pip3 install --user "${pip_packages[@]}"

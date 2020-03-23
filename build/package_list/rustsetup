@@ -6,13 +6,13 @@ if [[ ! "$(command -v termux-setup-storage)" ]]; then
   #not necessary on termux
   source "$HOME/.cargo/bin"
   rustup install nightly
-  rustup default nightlyi
+  rustup default nightly
 else
   cargo+=(ripgrep)
 fi
 
 cargo_packages+=(cargo-update)
-cargo_packages+=(powerline-rust)
+cargo_packages+=()
 
 export PATH="$PATH:$HOME/.cargo/bin/"
 rustup install nightly
