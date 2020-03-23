@@ -9,13 +9,10 @@ git config --global user.name "Joshua Ferguson"
 
 ################################ Download and Install Packages ################################
 ###############################################################################################
+source ./package_list/fedora
 source ./package_list/rustsetup
-source ./package_list/npm_packages
-source ./package_list/python_packages
-
-
-source ./package_lists/fedora
-
+#source ./package_list/npm_packages
+#source ./package_list/python_packages
 
 for repo in "${enable_apps[@]}"; do
 	echo $repo

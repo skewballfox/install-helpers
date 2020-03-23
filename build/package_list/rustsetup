@@ -1,8 +1,8 @@
 #!/bin/bash 
 
 cargo_packages=()
-if ![[ "$(command -v termux-setup-storage)" ]]; then
-  curl --proto '=https'--tlsv1.2 https://sh.rustup.rs -sSf | sh
+if [[ ! "$(command -v termux-setup-storage)" ]]; then
+  curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
   #not necessary on termux
   source "$HOME/.cargo/bin"
   rustup install nightly
@@ -14,7 +14,7 @@ fi
 cargo_packages+=(cargo-update)
 cargo_packages+=(powerline-rust)
 
-source "$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/.cargo/bin/"
 rustup install nightly
 #if ![[ "$(command -v termux-setup-storage)" ]]; then
 

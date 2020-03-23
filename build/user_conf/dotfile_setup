@@ -80,17 +80,12 @@ $ignore_deletions
 #install a few necessary things
 
 if [ -x "$(command -v kak)" ];then
-    cd "$XDG_CONFIG_HOME/kak"
-    mkdir plugins && cd plugins
-    git clone https://github.com/andreyorst/plug.kak.git
+    mkdir "$XDG_CONFIG_HOME/kak/plugins"
+    git clone --separate-git-dir="$XDG_CONFG_HOME/kak/plugins" https://github.com/andreyorst/plug.kak.git
 fi
 
 if [ -x "$(command -v fish)" ];then
     if ! [ -x "$(command -v powerline-go)" ];then
         cargo install powerline-rs
-    fi
-    if ! [[ -e "/etc/fedora-release" ]];then
-        git update-index --skip-worktree "$XDG_CONFIG_HOME/fish/functions/fsup.fish"
-        rm -r "$XDG_CONFIG_HOME/fish/functions/fsup.fish"
     fi
 fi

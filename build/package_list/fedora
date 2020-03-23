@@ -3,11 +3,11 @@
 #for post reboot
 sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-if [[ $(lspci | grep 'VGA\|3d\|2d')== *"Nvidia"* ]]; then
+if [[ $(sudo lspci | grep 'VGA\|3d\|2d') == "*Nvidia*" ]]; then
     sudo dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo   
 fi
 
-sudo dnf upgrade
+#sudo dnf upgrade
 
 flatpack_apps=()
 enable_apps=()
@@ -25,7 +25,7 @@ enable_apps+=(daftaupe/gopass atim/leftwm atim/hunter gregw/i3desktop luminoso/S
 #system administration and security
 dnf_apps+=(dnf-automatic lynis chkrootkit clamav clamtk clamav-unofficial-sigs fail2ban sendmail) #labrea)
 
-dnf_apps+=(policycoreutils-sandbox psad fwsnorti pciutils)
+dnf_apps+=(policycoreutils-sandbox psad pciutils)
 
 #for performance monitoring
 dnf_apps+=(glances htop hyperfine)
@@ -42,11 +42,11 @@ dnf_apps+=(redshift dmenu xbacklight conky python3-speedtest-cli)
 dnf_apps+=(lm_sensors elementary-icon-theme mint-x-icons rofi)
 
 kde_apps+=(klamav leftwm kde-connect kde-settings kde-gtk-config kdepim)
-kde_apps+=(kf5-krunner kiodrive)
+kde_apps+=(kf5-krunner kio-gdrive)
 
 #terminal and sundry
 dnf_apps+=(alacritty tmux ranger hunter fish bat mupdf ripgrep)#may remove ranger in the future
-dnf_apps+=(task vit tasksh timew taskopen)
+dnf_apps+=(task vit tasksh timew taskopen git-extras fish)
 
 #i3
 #dnf_apps+=(compton i3-gaps i3lock-color i3-ipc i3blocks dunst feh network-manager-applet)
@@ -79,7 +79,7 @@ dnf_apps+=(gstreamer1-plugins-bad-free-devel)
 dnf_apps+=(yamllint)
 
 #Text editors, language-servers, and interpreters
-dnf_apps+=(kakoune kak-lsp python3-jupyterconsole xeus-devel)
+dnf_apps+=(kakoune  python3-jupyter-console xeus-devel)
 dnf_apps+=(zeromq-devel rocs ccls)
 
 #exploring code visualization and generation
