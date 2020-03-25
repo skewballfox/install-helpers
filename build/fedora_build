@@ -2,8 +2,8 @@
 ################ configure environment #################
 ########################################################
 
-git config --global user.email "joshua.ferguson.273@gmail.com"
-git config --global user.name "Joshua Ferguson"
+#git config --global user.email "joshua.ferguson.273@gmail.com"
+#git config --global user.name "Joshua Ferguson"
 #dnf upgrade
 
 
@@ -19,7 +19,7 @@ source ./package_list/fedora
 #	sudo dnf copr enable "$repo"
 #done
 
-sudo dnf install "${dnf_apps[@]}" "${kde_apps[@]}" "${dev_apps[@]}" "${sys_apps[@]}" "${term_apps[@]}"
+#sudo dnf install "${dnf_apps[@]}" "${kde_apps[@]}" "${dev_apps[@]}" "${sys_apps[@]}" "${term_apps[@]}"
 
 
 #sudo cp ./system_setup/desktop-sessions/plasma-* /usr/share/xsessions/
@@ -28,12 +28,13 @@ sudo dnf install "${dnf_apps[@]}" "${kde_apps[@]}" "${dev_apps[@]}" "${sys_apps[
 #	sudo alternatives --config java
 #fi
 
+sudo su -c echo "export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'" >> /etc/profile.d/jre.sh
 sudo dnf update
 ############################# Configure System ##############################################
 #############################################################################################
 #install dotfiles here
-source ./user_conf/dotfile_setup
-exec ./user_conf/setup.fish
+#source ./user_conf/dotfile_setup
+#exec ./user_conf/setup.fish
 
 
 #wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
@@ -47,7 +48,7 @@ exec ./user_conf/setup.fish
 ############################# System Administration #########################################
 #############################################################################################
 
-sudo systemctl enable dnf-automatic-install.timer
-sudo systemctl start dnf-automatic-install.timer
-sudo systemctl enable crond.service
-sudo systemctl start crond.service
+#sudo systemctl enable dnf-automatic-install.timer
+#sudo systemctl start dnf-automatic-install.timer
+#sudo systemctl enable crond.service
+#sudo systemctl start crond.service
